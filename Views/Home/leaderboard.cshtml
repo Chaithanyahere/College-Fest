@@ -1,0 +1,51 @@
+﻿@model IEnumerable<College_Fest.Models.winner>
+
+@{
+    ViewBag.Title = "leaderboard";
+}
+
+<h2>leaderboard</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.prizetype)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prizewon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.register.firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tb_event.eventname)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.prizetype)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prizewon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.register.firstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tb_event.eventname)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.winid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.winid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.winid })
+        </td>
+    </tr>
+}
+
+</table>

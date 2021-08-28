@@ -1,0 +1,436 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="programModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="booking">
+          <Key>
+            <PropertyRef Name="bid" />
+          </Key>
+          <Property Name="bid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="eid" Type="int" />
+          <Property Name="rid" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'program.dbo.login' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="login">
+          <Property Name="userid" Type="int" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+        </EntityType>-->
+        <EntityType Name="register">
+          <Key>
+            <PropertyRef Name="rid" />
+          </Key>
+          <Property Name="rid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="nvarchar" MaxLength="50" />
+          <Property Name="lastname" Type="nvarchar" MaxLength="50" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="course" Type="nvarchar" MaxLength="50" />
+          <Property Name="year" Type="nvarchar" MaxLength="50" />
+          <Property Name="college" Type="nvarchar" MaxLength="50" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" />
+          <Property Name="pasword" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="result">
+          <Key>
+            <PropertyRef Name="resultid" />
+          </Key>
+          <Property Name="resultid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rid" Type="int" />
+          <Property Name="eid" Type="int" />
+          <Property Name="prize" Type="nvarchar" MaxLength="50" />
+          <Property Name="comment" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tb_event">
+          <Key>
+            <PropertyRef Name="eventid" />
+          </Key>
+          <Property Name="eventid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="eventname" Type="nvarchar" MaxLength="50" />
+          <Property Name="eventdate" Type="datetime" />
+          <Property Name="eventimage" Type="nvarchar" MaxLength="50" />
+          <Property Name="entryfee" Type="int" />
+          <Property Name="prize" Type="nvarchar" MaxLength="50" />
+          <Property Name="teamsize" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="winner">
+          <Key>
+            <PropertyRef Name="winid" />
+          </Key>
+          <Property Name="winid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="eid" Type="int" />
+          <Property Name="rid" Type="int" />
+          <Property Name="prizetype" Type="nvarchar" MaxLength="50" />
+          <Property Name="prizewon" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_booking_event">
+          <End Role="tb_event" Type="Self.tb_event" Multiplicity="0..1" />
+          <End Role="booking" Type="Self.booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_event">
+              <PropertyRef Name="eventid" />
+            </Principal>
+            <Dependent Role="booking">
+              <PropertyRef Name="eid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_booking_register">
+          <End Role="register" Type="Self.register" Multiplicity="0..1" />
+          <End Role="booking" Type="Self.booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="register">
+              <PropertyRef Name="rid" />
+            </Principal>
+            <Dependent Role="booking">
+              <PropertyRef Name="rid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_result_event">
+          <End Role="tb_event" Type="Self.tb_event" Multiplicity="0..1" />
+          <End Role="result" Type="Self.result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_event">
+              <PropertyRef Name="eventid" />
+            </Principal>
+            <Dependent Role="result">
+              <PropertyRef Name="eid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_result_register">
+          <End Role="register" Type="Self.register" Multiplicity="0..1" />
+          <End Role="result" Type="Self.result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="register">
+              <PropertyRef Name="rid" />
+            </Principal>
+            <Dependent Role="result">
+              <PropertyRef Name="rid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_winner_event">
+          <End Role="tb_event" Type="Self.tb_event" Multiplicity="0..1" />
+          <End Role="winner" Type="Self.winner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_event">
+              <PropertyRef Name="eventid" />
+            </Principal>
+            <Dependent Role="winner">
+              <PropertyRef Name="eid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_winner_register">
+          <End Role="register" Type="Self.register" Multiplicity="0..1" />
+          <End Role="winner" Type="Self.winner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="register">
+              <PropertyRef Name="rid" />
+            </Principal>
+            <Dependent Role="winner">
+              <PropertyRef Name="rid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="programModelStoreContainer">
+          <EntitySet Name="booking" EntityType="Self.booking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="register" EntityType="Self.register" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="result" EntityType="Self.result" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_event" EntityType="Self.tb_event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="winner" EntityType="Self.winner" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_booking_event" Association="Self.FK_booking_event">
+            <End Role="tb_event" EntitySet="tb_event" />
+            <End Role="booking" EntitySet="booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_booking_register" Association="Self.FK_booking_register">
+            <End Role="register" EntitySet="register" />
+            <End Role="booking" EntitySet="booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_result_event" Association="Self.FK_result_event">
+            <End Role="tb_event" EntitySet="tb_event" />
+            <End Role="result" EntitySet="result" />
+          </AssociationSet>
+          <AssociationSet Name="FK_result_register" Association="Self.FK_result_register">
+            <End Role="register" EntitySet="register" />
+            <End Role="result" EntitySet="result" />
+          </AssociationSet>
+          <AssociationSet Name="FK_winner_event" Association="Self.FK_winner_event">
+            <End Role="tb_event" EntitySet="tb_event" />
+            <End Role="winner" EntitySet="winner" />
+          </AssociationSet>
+          <AssociationSet Name="FK_winner_register" Association="Self.FK_winner_register">
+            <End Role="register" EntitySet="register" />
+            <End Role="winner" EntitySet="winner" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="programModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="booking">
+          <Key>
+            <PropertyRef Name="bid" />
+          </Key>
+          <Property Name="bid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="eid" Type="Int32" />
+          <Property Name="rid" Type="Int32" />
+          <NavigationProperty Name="tb_event" Relationship="Self.FK_booking_event" FromRole="booking" ToRole="tb_event" />
+          <NavigationProperty Name="register" Relationship="Self.FK_booking_register" FromRole="booking" ToRole="register" />
+        </EntityType>
+        <EntityType Name="register">
+          <Key>
+            <PropertyRef Name="rid" />
+          </Key>
+          <Property Name="rid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="course" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="college" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pasword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="bookings" Relationship="Self.FK_booking_register" FromRole="register" ToRole="booking" />
+          <NavigationProperty Name="results" Relationship="Self.FK_result_register" FromRole="register" ToRole="result" />
+          <NavigationProperty Name="winners" Relationship="Self.FK_winner_register" FromRole="register" ToRole="winner" />
+        </EntityType>
+        <EntityType Name="result">
+          <Key>
+            <PropertyRef Name="resultid" />
+          </Key>
+          <Property Name="resultid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rid" Type="Int32" />
+          <Property Name="eid" Type="Int32" />
+          <Property Name="prize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="comment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="register" Relationship="Self.FK_result_register" FromRole="result" ToRole="register" />
+          <NavigationProperty Name="tb_event" Relationship="Self.FK_result_event" FromRole="result" ToRole="tb_event" />
+        </EntityType>
+        <EntityType Name="tb_event">
+          <Key>
+            <PropertyRef Name="eventid" />
+          </Key>
+          <Property Name="eventid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="eventname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="eventdate" Type="DateTime" Precision="3" />
+          <Property Name="eventimage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="entryfee" Type="Int32" />
+          <Property Name="prize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="teamsize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="bookings" Relationship="Self.FK_booking_event" FromRole="tb_event" ToRole="booking" />
+          <NavigationProperty Name="results" Relationship="Self.FK_result_event" FromRole="tb_event" ToRole="result" />
+          <NavigationProperty Name="winners" Relationship="Self.FK_winner_event" FromRole="tb_event" ToRole="winner" />
+        </EntityType>
+        <EntityType Name="winner">
+          <Key>
+            <PropertyRef Name="winid" />
+          </Key>
+          <Property Name="winid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="eid" Type="Int32" />
+          <Property Name="rid" Type="Int32" />
+          <Property Name="prizetype" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="prizewon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="register" Relationship="Self.FK_winner_register" FromRole="winner" ToRole="register" />
+          <NavigationProperty Name="tb_event" Relationship="Self.FK_winner_event" FromRole="winner" ToRole="tb_event" />
+        </EntityType>
+        <Association Name="FK_booking_event">
+          <End Role="tb_event" Type="Self.tb_event" Multiplicity="0..1" />
+          <End Role="booking" Type="Self.booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_event">
+              <PropertyRef Name="eventid" />
+            </Principal>
+            <Dependent Role="booking">
+              <PropertyRef Name="eid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_booking_register">
+          <End Role="register" Type="Self.register" Multiplicity="0..1" />
+          <End Role="booking" Type="Self.booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="register">
+              <PropertyRef Name="rid" />
+            </Principal>
+            <Dependent Role="booking">
+              <PropertyRef Name="rid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_result_register">
+          <End Role="register" Type="Self.register" Multiplicity="0..1" />
+          <End Role="result" Type="Self.result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="register">
+              <PropertyRef Name="rid" />
+            </Principal>
+            <Dependent Role="result">
+              <PropertyRef Name="rid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_winner_register">
+          <End Role="register" Type="Self.register" Multiplicity="0..1" />
+          <End Role="winner" Type="Self.winner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="register">
+              <PropertyRef Name="rid" />
+            </Principal>
+            <Dependent Role="winner">
+              <PropertyRef Name="rid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_result_event">
+          <End Role="tb_event" Type="Self.tb_event" Multiplicity="0..1" />
+          <End Role="result" Type="Self.result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_event">
+              <PropertyRef Name="eventid" />
+            </Principal>
+            <Dependent Role="result">
+              <PropertyRef Name="eid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_winner_event">
+          <End Role="tb_event" Type="Self.tb_event" Multiplicity="0..1" />
+          <End Role="winner" Type="Self.winner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_event">
+              <PropertyRef Name="eventid" />
+            </Principal>
+            <Dependent Role="winner">
+              <PropertyRef Name="eid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="programEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="bookings" EntityType="Self.booking" />
+          <EntitySet Name="registers" EntityType="Self.register" />
+          <EntitySet Name="results" EntityType="Self.result" />
+          <EntitySet Name="tb_event" EntityType="Self.tb_event" />
+          <EntitySet Name="winners" EntityType="Self.winner" />
+          <AssociationSet Name="FK_booking_event" Association="Self.FK_booking_event">
+            <End Role="tb_event" EntitySet="tb_event" />
+            <End Role="booking" EntitySet="bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_booking_register" Association="Self.FK_booking_register">
+            <End Role="register" EntitySet="registers" />
+            <End Role="booking" EntitySet="bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_result_register" Association="Self.FK_result_register">
+            <End Role="register" EntitySet="registers" />
+            <End Role="result" EntitySet="results" />
+          </AssociationSet>
+          <AssociationSet Name="FK_winner_register" Association="Self.FK_winner_register">
+            <End Role="register" EntitySet="registers" />
+            <End Role="winner" EntitySet="winners" />
+          </AssociationSet>
+          <AssociationSet Name="FK_result_event" Association="Self.FK_result_event">
+            <End Role="tb_event" EntitySet="tb_event" />
+            <End Role="result" EntitySet="results" />
+          </AssociationSet>
+          <AssociationSet Name="FK_winner_event" Association="Self.FK_winner_event">
+            <End Role="tb_event" EntitySet="tb_event" />
+            <End Role="winner" EntitySet="winners" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="programModelStoreContainer" CdmEntityContainer="programEntities">
+          <EntitySetMapping Name="bookings">
+            <EntityTypeMapping TypeName="programModel.booking">
+              <MappingFragment StoreEntitySet="booking">
+                <ScalarProperty Name="bid" ColumnName="bid" />
+                <ScalarProperty Name="eid" ColumnName="eid" />
+                <ScalarProperty Name="rid" ColumnName="rid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="registers">
+            <EntityTypeMapping TypeName="programModel.register">
+              <MappingFragment StoreEntitySet="register">
+                <ScalarProperty Name="rid" ColumnName="rid" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="course" ColumnName="course" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="college" ColumnName="college" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="pasword" ColumnName="pasword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="results">
+            <EntityTypeMapping TypeName="programModel.result">
+              <MappingFragment StoreEntitySet="result">
+                <ScalarProperty Name="resultid" ColumnName="resultid" />
+                <ScalarProperty Name="rid" ColumnName="rid" />
+                <ScalarProperty Name="eid" ColumnName="eid" />
+                <ScalarProperty Name="prize" ColumnName="prize" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_event">
+            <EntityTypeMapping TypeName="programModel.tb_event">
+              <MappingFragment StoreEntitySet="tb_event">
+                <ScalarProperty Name="eventid" ColumnName="eventid" />
+                <ScalarProperty Name="eventname" ColumnName="eventname" />
+                <ScalarProperty Name="eventdate" ColumnName="eventdate" />
+                <ScalarProperty Name="eventimage" ColumnName="eventimage" />
+                <ScalarProperty Name="entryfee" ColumnName="entryfee" />
+                <ScalarProperty Name="prize" ColumnName="prize" />
+                <ScalarProperty Name="teamsize" ColumnName="teamsize" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="winners">
+            <EntityTypeMapping TypeName="programModel.winner">
+              <MappingFragment StoreEntitySet="winner">
+                <ScalarProperty Name="winid" ColumnName="winid" />
+                <ScalarProperty Name="eid" ColumnName="eid" />
+                <ScalarProperty Name="rid" ColumnName="rid" />
+                <ScalarProperty Name="prizetype" ColumnName="prizetype" />
+                <ScalarProperty Name="prizewon" ColumnName="prizewon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

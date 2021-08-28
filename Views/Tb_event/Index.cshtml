@@ -1,0 +1,63 @@
+﻿@model IEnumerable<College_Fest.Models.tb_event>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-dark table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.eventname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.eventdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.eventimage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.entryfee)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prize)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.teamsize)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.eventname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.eventdate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.eventimage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.entryfee)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prize)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.teamsize)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.eventid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.eventid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.eventid })
+        </td>
+    </tr>
+}
+
+</table>

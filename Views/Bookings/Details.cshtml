@@ -1,0 +1,34 @@
+﻿@model College_Fest.Models.booking
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>booking</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tb_event.eventname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tb_event.eventname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.register.firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.register.firstname)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.bid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

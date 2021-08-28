@@ -1,0 +1,50 @@
+﻿@model College_Fest.Models.winner
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>winner</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.prizetype)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prizetype)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prizewon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prizewon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.register.firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.register.firstname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tb_event.eventname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tb_event.eventname)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.winid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
